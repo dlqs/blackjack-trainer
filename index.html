@@ -20,7 +20,7 @@
     header{
       width:100%;max-width:820px;display:flex;justify-content:space-between;
       align-items:center;padding:10px 0;
-      border-bottom:1px solid rgba(212,168,67,.3);margin-bottom:16px;
+      border-bottom:1px solid rgba(212,168,67,.3);margin-bottom:10px;
     }
     h1{font-size:1.7em;color:var(--gold);text-shadow:0 2px 4px rgba(0,0,0,.6)}
     .stats{display:flex;gap:18px}
@@ -28,9 +28,34 @@
     .stat-v{display:block;font-size:1.35em;color:var(--gold);font-weight:bold}
     .stat-l{font-size:.72em;opacity:.65;text-transform:uppercase;letter-spacing:1px}
 
-    .game{width:100%;max-width:820px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    /* ── Rules Bar ─────────────────────────────── */
+    .rules-bar{
+      width:100%;max-width:820px;
+      display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+      padding:8px 0 12px;border-bottom:1px solid rgba(212,168,67,.2);
+      margin-bottom:12px;
+    }
+    .rule-badge{
+      display:inline-flex;align-items:center;gap:5px;
+      background:rgba(0,0,0,.35);border:1px solid rgba(212,168,67,.35);
+      border-radius:20px;padding:4px 11px;font-size:.8em;cursor:pointer;
+      transition:all .2s;
+    }
+    .rule-badge:hover{background:rgba(212,168,67,.12);border-color:var(--gold)}
+    .rule-badge .rule-val{color:var(--gold);font-weight:bold}
+    .rule-badge .rule-info{opacity:.55;font-size:.85em;margin-left:2px}
+    .rule-badge.warn .rule-val{color:#e74c3c}
+    .rule-badge.good .rule-val{color:#2ecc71}
+    .he-badge{
+      margin-left:auto;background:rgba(0,0,0,.4);
+      border:1px solid rgba(255,255,255,.2);border-radius:20px;
+      padding:4px 12px;font-size:.8em;
+    }
+    .he-val{font-weight:bold}
+    .he-low{color:#2ecc71}.he-mid{color:var(--gold)}.he-high{color:#e74c3c}
 
-    /* Hand sections */
+    /* ── Game ──────────────────────────────────── */
+    .game{width:100%;max-width:820px;display:flex;flex-direction:column;align-items:center;gap:12px}
     .hand-sec{width:100%;text-align:center}
     .sec-lbl{font-size:.75em;text-transform:uppercase;letter-spacing:2px;opacity:.65;margin-bottom:6px}
     .hand-val{
@@ -40,7 +65,7 @@
     }
     .cards{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;min-height:98px;align-items:flex-start}
 
-    /* Cards */
+    /* ── Cards ─────────────────────────────────── */
     .card{
       width:66px;height:96px;background:var(--card-bg);border-radius:8px;
       border:1px solid #ccc;display:flex;flex-direction:column;
@@ -57,12 +82,10 @@
       border-color:#1a3c6e;
     }
     .card.back .c-top,.card.back .c-mid,.card.back .c-bot{display:none}
-
-    /* Active hand highlight */
     .hand-group{display:flex;gap:6px;padding:4px;border-radius:8px}
     .hand-group.active{border:2px solid var(--gold)}
 
-    /* Message */
+    /* ── Messages ──────────────────────────────── */
     .msg{
       min-height:58px;text-align:center;padding:10px 16px;border-radius:8px;
       width:100%;max-width:620px;transition:all .3s;
@@ -71,11 +94,10 @@
     .msg.ok{background:rgba(39,174,96,.18);border-color:var(--correct)}
     .msg.bad{background:rgba(231,76,60,.18);border-color:var(--wrong)}
     .msg-title{font-size:1.15em;font-weight:bold;margin-bottom:3px}
-    .msg.ok  .msg-title{color:#2ecc71}
-    .msg.bad .msg-title{color:#e74c3c}
+    .msg.ok .msg-title{color:#2ecc71}.msg.bad .msg-title{color:#e74c3c}
     .msg-body{font-size:.87em;opacity:.88}
 
-    /* Hint */
+    /* ── Hint ──────────────────────────────────── */
     .hint{
       display:none;background:rgba(0,0,0,.32);border:1px solid var(--gold);
       border-radius:8px;padding:8px 20px;text-align:center;font-size:.92em;
@@ -83,7 +105,7 @@
     .hint.on{display:block}
     .hint-a{font-size:1.25em;color:var(--gold);font-weight:bold}
 
-    /* Controls */
+    /* ── Controls ──────────────────────────────── */
     .controls{width:100%;max-width:620px;display:flex;flex-direction:column;align-items:center;gap:10px}
     .bet-disp{font-size:1.35em;color:var(--gold)}
     .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -93,8 +115,8 @@
       color:#fff;text-shadow:1px 1px 2px rgba(0,0,0,.8);
     }
     .chip:hover{transform:scale(1.1)}.chip:active{transform:scale(.95)}
-    .c5  {background:radial-gradient(circle,#c0392b,#96281b)}
-    .c25 {background:radial-gradient(circle,#27ae60,#1e8449)}
+    .c5{background:radial-gradient(circle,#c0392b,#96281b)}
+    .c25{background:radial-gradient(circle,#27ae60,#1e8449)}
     .c100{background:radial-gradient(circle,#2980b9,#1a5276)}
     .c500{background:radial-gradient(circle,#8e44ad,#6c3483)}
 
@@ -108,11 +130,11 @@
     .btn:active:not(:disabled){transform:none}
     .btn:disabled{opacity:.38;cursor:not-allowed}
     .b-deal{background:var(--gold);color:#1a1a2e;min-width:100px}
-    .b-hit {background:#e74c3c;color:#fff}
+    .b-hit{background:#e74c3c;color:#fff}
     .b-stand{background:#27ae60;color:#fff}
-    .b-dbl {background:#e67e22;color:#fff}
-    .b-spl {background:#8e44ad;color:#fff}
-    .b-sur {background:#7f8c8d;color:#fff;font-size:.88em}
+    .b-dbl{background:#e67e22;color:#fff}
+    .b-spl{background:#8e44ad;color:#fff}
+    .b-sur{background:#7f8c8d;color:#fff;font-size:.88em}
     .b-grey{background:#2c3e50;color:#ecf0f1}
 
     .bot-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
@@ -123,11 +145,9 @@
     }
     .tog:hover{background:rgba(212,168,67,.1)}
     .tog.on{background:rgba(212,168,67,.2);border-color:var(--gold)}
-
-    /* Keyboard hints */
     .key-hint{font-size:.72em;opacity:.45;text-align:center}
 
-    /* Modal */
+    /* ── Modals ────────────────────────────────── */
     .overlay{
       display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);
       z-index:100;justify-content:center;align-items:flex-start;padding:20px;overflow-y:auto;
@@ -140,21 +160,60 @@
     .modal h2{color:var(--gold);margin-bottom:14px;text-align:center}
     .modal-x{float:right;background:none;border:none;color:var(--gold);font-size:1.5em;cursor:pointer;margin-top:-4px}
 
-    /* Strategy tables */
+    /* ── Strategy chart ────────────────────────── */
     .strat-sec{margin-top:14px}
     .strat-sec h3{color:var(--gold);margin-bottom:7px;font-size:.88em}
     .strat-tbl{width:100%;border-collapse:collapse;font-size:.73em;text-align:center}
     .strat-tbl th{background:rgba(0,0,0,.45);padding:4px 5px;color:var(--gold);border:1px solid rgba(255,255,255,.1)}
     .strat-tbl td{padding:3px 4px;border:1px solid rgba(255,255,255,.1);font-weight:bold;color:#fff}
-    .cH {background:#b03a2e}.cS {background:#1a6b3a}.cD {background:#ca6f1e}
-    .cDs{background:#ca6f1e}.cSP{background:#1a5276}.cR {background:#555}.cRs{background:#555}
+    .cH{background:#b03a2e}.cS{background:#1a6b3a}.cD{background:#ca6f1e}
+    .cDs{background:#ca6f1e}.cSP{background:#1a5276}.cR{background:#555}.cRs{background:#555}
     .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:.78em}
     .leg-i{display:flex;align-items:center;gap:5px}
     .leg-c{width:20px;height:14px;border-radius:3px}
 
+    /* ── Rule Info modal ───────────────────────── */
+    .rule-info-card{background:rgba(0,0,0,.3);border-radius:8px;padding:14px;margin-bottom:12px}
+    .rule-info-card h3{color:var(--gold);margin-bottom:8px;font-size:1em}
+    .rule-info-card p{font-size:.88em;line-height:1.6;margin-bottom:8px;opacity:.9}
+    .variants-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0}
+    .variant-opt{
+      background:rgba(0,0,0,.3);border-radius:6px;padding:8px 10px;
+      border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .2s;
+    }
+    .variant-opt:hover{border-color:var(--gold);background:rgba(212,168,67,.1)}
+    .variant-opt.active{border-color:var(--gold);background:rgba(212,168,67,.18)}
+    .variant-opt .v-name{font-weight:bold;font-size:.9em;color:var(--gold)}
+    .variant-opt .v-edge{font-size:.78em;margin-top:3px}
+    .v-edge.good{color:#2ecc71}.v-edge.warn{color:#e74c3c}.v-edge.neutral{color:var(--gold)}
+    .advice-box{
+      background:rgba(39,174,96,.12);border:1px solid rgba(39,174,96,.3);
+      border-radius:6px;padding:10px 12px;font-size:.84em;line-height:1.6;
+      margin-top:8px;
+    }
+    .advice-box::before{content:'💡 ';font-size:1.1em}
+
+    /* ── Settings toggles ──────────────────────── */
+    .settings-grid{display:flex;flex-direction:column;gap:10px}
+    .setting-row{
+      display:flex;justify-content:space-between;align-items:center;
+      background:rgba(0,0,0,.25);border-radius:6px;padding:8px 12px;
+    }
+    .setting-label{font-size:.9em}
+    .setting-label small{display:block;opacity:.55;font-size:.8em}
+    .toggle-group{display:flex;gap:6px}
+    .t-opt{
+      padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.2);
+      cursor:pointer;font-size:.8em;background:transparent;color:#f5e6c8;
+      transition:all .15s;
+    }
+    .t-opt:hover{border-color:var(--gold)}
+    .t-opt.active{background:var(--gold);color:#1a1a2e;border-color:var(--gold);font-weight:bold}
+
     @media(max-width:500px){
       h1{font-size:1.25em}.card{width:56px;height:82px;font-size:.88em}
       .stats{gap:10px}.stat-v{font-size:1.1em}.btn{padding:9px 13px;font-size:.88em}
+      .rules-bar{gap:5px}
     }
   </style>
 </head>
@@ -169,6 +228,11 @@
   </div>
 </header>
 
+<!-- Rules bar -->
+<div class="rules-bar" id="rulesBar">
+  <!-- populated by JS -->
+</div>
+
 <div class="game">
   <div class="hand-sec">
     <div class="sec-lbl">Dealer</div>
@@ -178,7 +242,7 @@
 
   <div class="msg" id="msg">
     <div class="msg-title" id="msgT">Welcome to Blackjack Trainer</div>
-    <div class="msg-body" id="msgB">Place a bet and deal to start. Toggle hints to see optimal strategy in real time.</div>
+    <div class="msg-body" id="msgB">Place a bet and deal to start. Click any rule badge above to learn what it means.</div>
   </div>
 
   <div class="hint" id="hintArea">
@@ -206,18 +270,16 @@
         <button class="btn b-deal" id="btnDeal" onclick="deal()" disabled>Deal ▶</button>
       </div>
     </div>
-
     <div id="cAct" style="display:none">
       <div class="act-btns">
-        <button class="btn b-hit"  id="bHit"  onclick="act('hit')">Hit</button>
+        <button class="btn b-hit"   id="bHit"   onclick="act('hit')">Hit</button>
         <button class="btn b-stand" id="bStand" onclick="act('stand')">Stand</button>
-        <button class="btn b-dbl"  id="bDbl"  onclick="act('double')">Double</button>
-        <button class="btn b-spl"  id="bSpl"  onclick="act('split')">Split</button>
-        <button class="btn b-sur"  id="bSur"  onclick="act('surrender')">Surrender</button>
+        <button class="btn b-dbl"   id="bDbl"   onclick="act('double')">Double</button>
+        <button class="btn b-spl"   id="bSpl"   onclick="act('split')">Split</button>
+        <button class="btn b-sur"   id="bSur"   onclick="act('surrender')">Surrender</button>
       </div>
       <div class="key-hint" style="margin-top:6px">Keyboard: H · S · D · P · R</div>
     </div>
-
     <div id="cNext" style="display:none">
       <button class="btn b-deal" onclick="nextHand()">Next Hand →</button>
     </div>
@@ -226,6 +288,7 @@
   <div class="bot-row">
     <button class="tog" id="togHint" onclick="toggleHint()">💡 Hints: OFF</button>
     <button class="tog" onclick="openChart()">📊 Strategy Chart</button>
+    <button class="tog" onclick="openSettings()">⚙️ Table Rules</button>
     <button class="tog" onclick="resetGame()">↺ Reset</button>
   </div>
 </div>
@@ -233,49 +296,242 @@
 <!-- Strategy chart modal -->
 <div class="overlay" id="chartModal">
   <div class="modal">
-    <button class="modal-x" onclick="closeChart()">✕</button>
-    <h2>📊 Basic Strategy — 6 Deck · S17 · DAS</h2>
+    <button class="modal-x" onclick="closeModal('chartModal')">✕</button>
+    <h2>📊 Basic Strategy</h2>
+    <div id="chartSubtitle" style="text-align:center;opacity:.7;font-size:.85em;margin-bottom:10px"></div>
     <div id="chartContent"></div>
     <div class="legend">
       <div class="leg-i"><div class="leg-c" style="background:#b03a2e"></div>Hit</div>
       <div class="leg-i"><div class="leg-c" style="background:#1a6b3a"></div>Stand</div>
       <div class="leg-i"><div class="leg-c" style="background:#ca6f1e"></div>Double (else Hit/Stand)</div>
       <div class="leg-i"><div class="leg-c" style="background:#1a5276"></div>Split</div>
-      <div class="leg-i"><div class="leg-c" style="background:#555"></div>Surrender (else H/S)</div>
+      <div class="leg-i"><div class="leg-c" style="background:#555"></div>Surrender</div>
     </div>
   </div>
 </div>
 
+<!-- Rule info modal -->
+<div class="overlay" id="ruleModal">
+  <div class="modal" style="max-width:560px">
+    <button class="modal-x" onclick="closeModal('ruleModal')">✕</button>
+    <h2 id="ruleModalTitle">Rule Info</h2>
+    <div id="ruleModalBody"></div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="overlay" id="settingsModal">
+  <div class="modal" style="max-width:560px">
+    <button class="modal-x" onclick="closeModal('settingsModal')">✕</button>
+    <h2>⚙️ Table Rules</h2>
+    <p style="font-size:.83em;opacity:.65;text-align:center;margin-bottom:14px">
+      Configure rules to match the casino you're at. Strategy and house edge update automatically.
+    </p>
+    <div class="settings-grid" id="settingsGrid"></div>
+  </div>
+</div>
+
 <script>
-// ═══════════════════════════════════════════════
-//  BLACKJACK TRAINER  ·  complete game engine
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+//  BLACKJACK TRAINER  —  full game + rules + explanations
+// ═══════════════════════════════════════════════════════
 
-const RANKS = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-const SUITS = ['♠','♥','♦','♣'];
-const RED   = new Set(['♥','♦']);
+// ── Rules config ───────────────────────────────────────
+let RULES = {
+  decks:     6,       // 1 | 2 | 4 | 6 | 8
+  s17:       true,    // true=S17, false=H17
+  bjPay:   '3:2',     // '3:2' | '6:5' | '1:1'
+  das:       true,    // Double After Split
+  surrender:'late',   // 'late' | 'none'
+  rsa:       false,   // Resplit Aces
+};
 
-// ── State ──────────────────────────────────────
-let S = {
+// ── Rule metadata (info, variants, house edge deltas) ──
+const RULE_META = {
+  bjPay: {
+    label: 'Blackjack Pays',
+    icon: '🃏',
+    value: () => RULES.bjPay,
+    warn: () => RULES.bjPay !== '3:2',
+    good: () => RULES.bjPay === '3:2',
+    title: 'Blackjack Payout',
+    explain: `A "natural blackjack" is any Ace + 10-value card dealt as your first two cards. The payout is the biggest lever in the whole game.
+
+<strong>3:2</strong> means a $10 bet wins $15. This is the standard, player-friendly rule and is the foundation of basic strategy math.
+
+<strong>6:5</strong> means a $10 bet wins only $12. That missing $3 adds <strong>1.39% to the house edge</strong> — by far the single worst rule change you'll encounter. A 6:5 table beats a perfect basic-strategy player worse than a 3:2 table beats a card counter.
+
+<strong>1:1 (even money)</strong> is essentially giving the casino an extra 2.27% for free.`,
+    advice: 'Always find a 3:2 table, even if it means shorter sessions or higher minimums. No other rule change comes close to this in importance.',
+    variants: [
+      { key:'3:2', label:'3:2 — Standard', edge:0,     desc:'Win $15 on a $10 bet. Seek this out.',           tone:'good' },
+      { key:'6:5', label:'6:5 — Trap',     edge:+1.39, desc:'+1.39% house edge. Walk away.',                  tone:'warn' },
+      { key:'1:1', label:'Even Money',      edge:+2.27, desc:'+2.27% house edge. Never play this.',            tone:'warn' },
+    ],
+  },
+  s17: {
+    label: 'Dealer Soft 17',
+    icon: '🎴',
+    value: () => RULES.s17 ? 'S17' : 'H17',
+    warn: () => !RULES.s17,
+    good: () => RULES.s17,
+    title: 'Dealer Stands or Hits on Soft 17',
+    explain: `A <strong>soft hand</strong> is any hand containing an Ace counted as 11. Soft 17 = Ace + 6 (or Ace + 3 + 3, etc.).
+
+<strong>S17 (Stands on soft 17)</strong> — the dealer must stop at 17, even if it's soft. Better for the player because the dealer can't improve from a borderline hand.
+
+<strong>H17 (Hits on soft 17)</strong> — the dealer draws another card, giving them a second chance to improve. This adds ~0.22% to house edge and changes a few strategy plays:
+• Hard 11 vs Ace → <strong>Double</strong> (was Hit)
+• Soft 19 vs 6 → <strong>Double</strong> (was Stand)
+• Hard 15 vs Ace → <strong>Surrender</strong> (was Hit)
+• Hard 17 vs Ace → <strong>Surrender</strong> (was Stand)
+
+The hints and strategy chart update automatically when you toggle this.`,
+    advice: 'Prefer S17 tables. The rule is usually posted on the felt: "Dealer must draw to 16 and stand on all 17s" (S17) vs "Dealer hits soft 17" (H17).',
+    variants: [
+      { key:'s17', label:'S17 — Stand',   edge:0,     desc:'Dealer stands on all 17s. Player-friendly.',     tone:'good' },
+      { key:'h17', label:'H17 — Hit',     edge:+0.22, desc:'+0.22% house edge. Changes some strategy plays.', tone:'warn' },
+    ],
+  },
+  decks: {
+    label: 'Decks',
+    icon: '🂠',
+    value: () => RULES.decks + (RULES.decks === 1 ? ' Deck' : ' Decks'),
+    warn: () => false,
+    good: () => RULES.decks <= 2,
+    title: 'Number of Decks',
+    explain: `More decks make it harder for cards to be "due" — a single-deck game is more volatile and the composition of remaining cards changes faster. This benefits the player slightly.
+
+The house edge impact (vs 6 decks):
+• <strong>1 deck</strong>: −0.58% (best for player)
+• <strong>2 decks</strong>: −0.30%
+• <strong>4 decks</strong>: −0.06%
+• <strong>6 decks</strong>: baseline
+• <strong>8 decks</strong>: +0.02%
+
+<strong>Important caveat:</strong> Single-deck games almost always come with 6:5 payout as compensation. That costs you 1.39% — far more than the 0.58% you gain. Always check the BJ payout before deck count.`,
+    advice: 'Deck count is secondary to payout. A 6-deck 3:2 table beats a single-deck 6:5 table every time. That said, if payouts are equal, fewer decks is better.',
+    variants: [
+      { key:1,  label:'1 Deck',  edge:-0.58, desc:'Best for player — but usually paired with 6:5 payout.',  tone:'good' },
+      { key:2,  label:'2 Decks', edge:-0.30, desc:'Good. Common in mid-range casinos.',                     tone:'good' },
+      { key:4,  label:'4 Decks', edge:-0.06, desc:'Slightly better than 6.',                                tone:'neutral' },
+      { key:6,  label:'6 Decks', edge:0,     desc:'Most common. Baseline.',                                 tone:'neutral' },
+      { key:8,  label:'8 Decks', edge:+0.02, desc:'Marginally worse. Common online.',                       tone:'neutral' },
+    ],
+  },
+  das: {
+    label: 'DAS',
+    icon: '✌️',
+    value: () => RULES.das ? 'DAS' : 'No DAS',
+    warn: () => !RULES.das,
+    good: () => RULES.das,
+    title: 'Double After Split (DAS)',
+    explain: `After splitting a pair into two hands, <strong>DAS</strong> lets you double down on either new hand — the same as if you'd been dealt that hand originally.
+
+Example: Split 4-4 vs dealer 5. With DAS, if you're then dealt a 7 (making 11), you can double down for a powerful position.
+
+<strong>Without DAS</strong>, some splits become less profitable. The strategy chart assumes DAS; if you're at a no-DAS table, change these splits to hits:
+• 2-2 vs 2, 3
+• 3-3 vs 2, 3
+• 4-4 vs 5, 6
+• 6-6 vs 2
+
+No DAS adds <strong>0.14%</strong> to house edge.`,
+    advice: 'Most multi-deck games allow DAS. Check before sitting down. The strategy chart will update if you toggle this off.',
+    variants: [
+      { key:true,  label:'DAS Allowed',     edge:0,     desc:'Standard. Reduces edge by 0.14% vs no-DAS.',   tone:'good' },
+      { key:false, label:'No DAS',           edge:+0.14, desc:'+0.14% edge. Adjust some split strategies.',   tone:'warn' },
+    ],
+  },
+  surrender: {
+    label: 'Surrender',
+    icon: '🏳️',
+    value: () => RULES.surrender === 'late' ? 'Late Sur.' : 'No Sur.',
+    warn: () => RULES.surrender === 'none',
+    good: () => RULES.surrender === 'late',
+    title: 'Surrender',
+    explain: `Surrender lets you fold your hand after seeing your first two cards and the dealer's upcard, recovering <strong>half your bet</strong> instead of losing the full amount.
+
+<strong>Late surrender</strong> means the dealer checks for blackjack first. If the dealer has BJ, you can't surrender (you just lose). This is the standard version where available.
+
+<strong>Key spots to surrender</strong> (basic strategy):
+• Hard 15 vs dealer 10
+• Hard 16 vs dealer 9, 10, Ace
+• Hard 17 vs Ace (H17 tables only)
+
+Think of surrender as "when I'm a big underdog, cut my losses." A hard 16 vs a dealer 10 wins less than a quarter of the time — surrendering saves you money in the long run.
+
+Late surrender reduces house edge by <strong>~0.08%</strong>.`,
+    advice: 'Most Vegas Strip casinos offer late surrender on multi-deck games. It\'s not offered at all tables — check or ask the dealer. Using surrender correctly is worth about 0.08%.',
+    variants: [
+      { key:'late', label:'Late Surrender', edge:0,    desc:'Available on most multi-deck tables.',  tone:'good' },
+      { key:'none', label:'No Surrender',   edge:+0.08,desc:'+0.08% edge. Common at lower-limit tables.', tone:'warn' },
+    ],
+  },
+  rsa: {
+    label: 'RSA',
+    icon: '🂡',
+    value: () => RULES.rsa ? 'RSA' : 'No RSA',
+    warn: () => false,
+    good: () => RULES.rsa,
+    title: 'Resplit Aces (RSA)',
+    explain: `Normally, split aces receive only one card each and <strong>cannot be resplit</strong>. If you split aces and receive another ace, you're stuck with two hands showing A-A.
+
+<strong>RSA (Resplit Aces)</strong> allows you to split again if you hit another ace — up to 3 or 4 hands. This is a small but real player advantage.
+
+RSA reduces house edge by <strong>~0.08%</strong>.
+
+Note: Even with RSA, split aces typically receive only one card each — they're not played as normal hands.`,
+    advice: 'RSA is offered at some casinos and is a minor but real benefit. Not common enough to be a deciding factor in where to play.',
+    variants: [
+      { key:true,  label:'RSA Allowed', edge:-0.08, desc:'Minor benefit. Allowed at some casinos.',   tone:'good' },
+      { key:false, label:'No RSA',      edge:0,     desc:'Standard. Stuck if you resplit an ace.',    tone:'neutral' },
+    ],
+  },
+};
+
+// ── House edge calculator ──────────────────────────────
+function houseEdge() {
+  const BASE = 0.46; // 6-deck, S17, DAS, 3:2, Late Surrender
+  const deckAdj = {1:-0.58, 2:-0.30, 4:-0.06, 6:0, 8:+0.02};
+  const payAdj  = {'3:2':0, '6:5':1.39, '1:1':2.27};
+  let he = BASE
+    + (deckAdj[RULES.decks] || 0)
+    + (payAdj[RULES.bjPay]  || 0)
+    + (RULES.s17  ? 0 : 0.22)
+    + (RULES.das  ? 0 : 0.14)
+    + (RULES.surrender==='late' ? 0 : 0.08)
+    + (RULES.rsa  ? -0.08 : 0);
+  return Math.max(0, he).toFixed(2);
+}
+
+// ── CARD / SHOE ────────────────────────────────────────
+const RANKS=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+const SUITS=['♠','♥','♦','♣'];
+const RED=new Set(['♥','♦']);
+
+function newShoe(){
+  const d=[];
+  for(let i=0;i<RULES.decks;i++) for(const s of SUITS) for(const r of RANKS) d.push({r,s});
+  for(let i=d.length-1;i>0;i--){const j=Math.random()*i|0;[d[i],d[j]]=[d[j],d[i]];}
+  return d;
+}
+
+// ── STATE ──────────────────────────────────────────────
+let S={
   shoe:[],dealer:[],hands:[[]],bets:[0],activei:0,
   curBet:0,balance:1000,phase:'bet',
   hintsOn:false,handsPlayed:0,correct:0,decisions:0,splits:0,
 };
 
-// ── Shoe ───────────────────────────────────────
-function newShoe(){
-  const d=[];
-  for(let i=0;i<6;i++) for(const s of SUITS) for(const r of RANKS) d.push({r,s});
-  for(let i=d.length-1;i>0;i--){const j=Math.random()*i|0;[d[i],d[j]]=[d[j],d[i]];}
-  return d;
-}
 function draw(){
-  if(S.shoe.length<78) S.shoe=newShoe();
+  const cut=Math.floor(S.shoe.length*0.25);
+  if(S.shoe.length<=cut) S.shoe=newShoe();
   return S.shoe.pop();
 }
 
-// ── Hand math ──────────────────────────────────
-function cv(c){ return c.r==='A'?11:['J','Q','K'].includes(c.r)?10:+c.r; }
+// ── HAND MATH ──────────────────────────────────────────
+function cv(c){return c.r==='A'?11:['J','Q','K'].includes(c.r)?10:+c.r;}
 function hv(h){
   let t=0,a=0;
   for(const c of h) c.r==='A'?a++:t+=cv(c);
@@ -296,9 +552,9 @@ function pair(h){
   return v(h[0])===v(h[1]);
 }
 
-// ── Basic Strategy (6-deck S17 DAS, no RSA) ───
-//   Dealer idx: 2→0 … 10→8, A→9
-const HT={// Hard totals
+// ── BASIC STRATEGY TABLES ──────────────────────────────
+// S17, 6-deck, DAS — dealer upcard index: 2→0 … 10→8, A→9
+const HT={
   5: ['H','H','H','H','H','H','H','H','H','H'],
   6: ['H','H','H','H','H','H','H','H','H','H'],
   7: ['H','H','H','H','H','H','H','H','H','H'],
@@ -313,7 +569,7 @@ const HT={// Hard totals
  16: ['S','S','S','S','S','H','H','R','R','R'],
  17: ['S','S','S','S','S','S','S','S','S','Rs'],
 };
-const ST={// Soft totals (hand value)
+const ST={
  13: ['H','H','H','D','D','H','H','H','H','H'],
  14: ['H','H','H','D','D','H','H','H','H','H'],
  15: ['H','H','D','D','D','H','H','H','H','H'],
@@ -323,7 +579,7 @@ const ST={// Soft totals (hand value)
  19: ['S','S','S','S','S','S','S','S','S','S'],
  20: ['S','S','S','S','S','S','S','S','S','S'],
 };
-const PT={// Pairs (card value: 2-10, 11=Ace)
+const PT={
   2: ['SP','SP','SP','SP','SP','SP','H','H','H','H'],
   3: ['SP','SP','SP','SP','SP','SP','H','H','H','H'],
   4: ['H','H','H','SP','SP','H','H','H','H','H'],
@@ -335,35 +591,62 @@ const PT={// Pairs (card value: 2-10, 11=Ace)
  10: ['S','S','S','S','S','S','S','S','S','S'],
  11: ['SP','SP','SP','SP','SP','SP','SP','SP','SP','SP'],
 };
+// No-DAS pair adjustments (change SP→H where DAS was needed)
+const PT_NODAS_OVERRIDE={
+  2:[0,1],[3:[0,1]],4:[3,4],6:[0],
+};
+// H17 overrides: [tableKey][handVal][dealerIdx] = newAction
+const H17_HARD={11:{9:'D'}, 15:{9:'R'}, 17:{9:'Rs'}};
+const H17_SOFT={19:{4:'Ds'}};
 
-function di(u){ return u.r==='A'?9:Math.min(cv(u),10)-2; }
+function di(u){return u.r==='A'?9:Math.min(cv(u),10)-2;}
 
-function optimal(hand,upcard,canDbl,canSpl,canSur){
+function lookup(hand,upcard){
   const d=di(upcard), v=hv(hand);
-  // Pair
-  if(canSpl && pair(hand)){
-    const pv=hand[0].r==='A'?11:Math.min(cv(hand[0]),10);
-    const a=PT[pv]?.[d];
-    if(a==='SP') return 'SP';
-  }
   // Soft
   if(soft(hand)){
-    if(v>=19) return 'S';
-    const a=ST[v]?.[d];
-    if(a){
-      if(a==='Ds') return canDbl?'D':'S';
-      if(a==='D')  return canDbl?'D':'H';
-      return a;
+    if(v>=21) return 'S';
+    if(v>=19){
+      if(!RULES.s17 && H17_SOFT[v]?.[d]) return H17_SOFT[v][d];
+      return 'S';
     }
+    const a=ST[v]?.[d]; if(!a) return 'S';
+    return a;
   }
   // Hard
   if(v>=21) return v===21?'S':'H';
   if(v<=8) return 'H';
   if(v>=18) return 'S';
-  const a=HT[v]?.[d]||'H';
-  if(a==='R')  return canSur?'R':'H';
-  if(a==='Rs') return canSur?'R':'S';
-  if(a==='D')  return canDbl?'D':'H';
+  let a = (HT[v]?.[d]) || 'H';
+  if(!RULES.s17 && H17_HARD[v]?.[d]) a=H17_HARD[v][d];
+  return a;
+}
+
+function getPair(hand,upcard){
+  const d=di(upcard);
+  const pv=hand[0].r==='A'?11:Math.min(cv(hand[0]),10);
+  let a=PT[pv]?.[d]||'H';
+  // No-DAS: demote certain splits to hard-hand play
+  if(!RULES.das && a==='SP'){
+    const nodas={2:[0,1],3:[0,1],4:[3,4],6:[0]};
+    if(nodas[pv]?.includes(d)) a=lookup(hand,upcard);
+  }
+  return a;
+}
+
+function optimal(hand,upcard,canDbl,canSpl,canSur){
+  // Pair
+  if(canSpl && pair(hand)){
+    const a=getPair(hand,upcard);
+    if(a==='SP') return 'SP';
+  }
+  // Soft / hard
+  let a=lookup(hand,upcard);
+  // Apply availability constraints
+  if(a==='R')  a=canSur?'R':'H';
+  if(a==='Rs') a=canSur?'R':'S';
+  if(a==='D')  a=canDbl?'D':'H';
+  if(a==='Ds') a=canDbl?'D':'S';
   return a;
 }
 
@@ -374,39 +657,36 @@ function explain(a,hand,upcard){
   const hStr=s?`Soft ${v}`:`Hard ${v}`;
   return {H:`${hStr} vs ${dStr}: Hit — improve your total.`,
     S:`${hStr} vs ${dStr}: Stand — make the dealer draw.`,
-    D:`${hStr} vs ${dStr}: Double Down — max profit!`,
-    SP:`Pair vs ${dStr}: Split — play two hands.`,
+    D:`${hStr} vs ${dStr}: Double Down — maximize your advantage!`,
+    SP:`Pair vs ${dStr}: Split — play two separate hands.`,
     R:`${hStr} vs ${dStr}: Surrender — recover half your bet.`}[a]||'';
 }
 
-// ── Game flow ──────────────────────────────────
+// ── GAME FLOW ──────────────────────────────────────────
 function deal(){
   if(S.curBet===0||S.phase!=='bet') return;
+  S.shoe=S.shoe.length>52?S.shoe:newShoe();
   S.dealer=[draw(),draw()];
-  S.hands=[[draw(),draw()]];
-  S.bets=[S.curBet];
+  S.hands=[[draw(),draw()]]; S.bets=[S.curBet];
   S.activei=0; S.phase='play'; S.splits=0;
   S.balance-=S.curBet;
   render(); showHint();
-  if(bj(S.hands[0])){ setMsg('','🃏 Blackjack!','Checking dealer...'); setTimeout(endPlay,500); }
+  if(bj(S.hands[0])){setMsg('','🃏 Blackjack!','Checking dealer…');setTimeout(endPlay,500);}
   else showAct();
 }
 
 function act(action){
   if(S.phase!=='play') return;
-  const h=S.hands[S.activei], u=S.dealer[0], bet=S.bets[S.activei];
+  const h=S.hands[S.activei],u=S.dealer[0],bet=S.bets[S.activei];
   const canDbl=h.length===2&&S.balance>=bet;
   const canSpl=pair(h)&&h.length===2&&S.balance>=bet&&S.splits<3;
-  const canSur=h.length===2&&S.activei===0&&S.hands.length===1;
+  const canSur=RULES.surrender==='late'&&h.length===2&&S.activei===0&&S.hands.length===1;
   const opt=optimal(h,u,canDbl,canSpl,canSur);
   const mv={hit:'H',stand:'S',double:'D',split:'SP',surrender:'R'}[action];
-
   S.decisions++;
   const ok=(mv===opt);
   if(ok) S.correct++;
-  const type=ok?'ok':'bad';
-  const prefix=ok?'✓ Correct!':'✗ '+(ANAME[mv]||mv)+' — should be '+ANAME[opt];
-  setMsg(type,prefix,explain(opt,h,u));
+  setMsg(ok?'ok':'bad',ok?`✓ Correct! ${ANAME[opt]}`:`✗ ${ANAME[mv]||mv} — should be ${ANAME[opt]}`,explain(opt,h,u));
 
   switch(action){
     case 'hit':
@@ -429,7 +709,7 @@ function act(action){
       S.bets.splice(S.activei+1,0,bet);
       S.balance-=bet; S.splits++;
       render(); showHint();
-      if(h[0].r==='A') advance(); // one card only on split aces
+      if(h[0].r==='A'&&!RULES.rsa) advance();
       break;
     case 'surrender':
       if(!canSur) break;
@@ -444,33 +724,34 @@ function act(action){
 function advance(){
   S.activei++;
   if(S.activei>=S.hands.length) endPlay();
-  else{ render(); showHint(); }
+  else{render();showHint();}
 }
-
 function endPlay(){
   S.phase='dealer'; render();
   const allBust=S.hands.every(h=>bust(h));
-  setTimeout(()=> allBust?endRound():dealerPlay(), 300);
+  setTimeout(()=>allBust?endRound():dealerPlay(),300);
 }
-
 function dealerPlay(){
   const iv=setInterval(()=>{
-    if(hv(S.dealer)>=17){ clearInterval(iv); endRound(); return; }
+    if(hv(S.dealer)>=17){clearInterval(iv);endRound();return;}
+    // H17: hit soft 17
+    if(!RULES.s17 && hv(S.dealer)===17 && soft(S.dealer)){S.dealer.push(draw());render();return;}
+    if(hv(S.dealer)>=17){clearInterval(iv);endRound();return;}
     S.dealer.push(draw()); render();
   },420);
 }
-
 function endRound(){
   S.phase='result'; S.handsPlayed++;
-  const dv=hv(S.dealer), dbust=bust(S.dealer), dbj=bj(S.dealer);
-  let totalWin=0, results=[];
+  const dv=hv(S.dealer),dbust=bust(S.dealer),dbj=bj(S.dealer);
+  let totalWin=0,results=[];
   for(let i=0;i<S.hands.length;i++){
-    const h=S.hands[i], bet=S.bets[i];
-    if(bet===0){ results.push('Surrender'); continue; }
-    const pv=hv(h), pbust=bust(h), pbj=bj(h)&&S.hands.length===1;
+    const h=S.hands[i],bet=S.bets[i];
+    if(bet===0){results.push('Surrender');continue;}
+    const pv=hv(h),pbust=bust(h),pbj=bj(h)&&S.hands.length===1;
     let win=0,res='';
+    const bjMult=RULES.bjPay==='3:2'?1.5:RULES.bjPay==='6:5'?1.2:1;
     if(pbust){win=0;res='Bust 💀';}
-    else if(pbj&&!dbj){win=bet+bet*1.5;res=`Blackjack! +$${bet*1.5}`;}
+    else if(pbj&&!dbj){win=bet+bet*bjMult;res=`Blackjack! +$${bet*bjMult}`;}
     else if(dbust){win=bet*2;res=`Dealer bust +$${bet}`;}
     else if(pbj&&dbj){win=bet;res='Push (both BJ)';}
     else if(pv>dv){win=bet*2;res=`Win +$${bet}`;}
@@ -479,11 +760,10 @@ function endRound(){
     totalWin+=win; results.push(res);
   }
   S.balance+=totalWin;
-  const betSum=S.bets.reduce((a,b)=>a+b,0);
-  const net=totalWin-betSum;
-  const t=net>0?`🏆 +$${net}`:net<0?`💸 -$${Math.abs(net)}`:'🤝 Push';
-  const type=net>0?'ok':net<0?'bad':'';
-  setMsg(type,t,results.join(' · '));
+  const net=totalWin-S.bets.reduce((a,b)=>a+b,0);
+  setMsg(net>0?'ok':net<0?'bad':'',
+    net>0?`🏆 +$${net}`:net<0?`💸 -$${Math.abs(net)}`:'🤝 Push',
+    results.join(' · '));
   render(); showNext(); updateStats();
   if(S.balance<=0) setMsg('bad','💀 Broke!','Reset to start again.');
 }
@@ -497,10 +777,11 @@ function nextHand(){
   document.getElementById('cAct').style.display='none';
   document.getElementById('cNext').style.display='none';
   document.getElementById('hintArea').classList.remove('on');
-  setMsg('','Ready','Place your bet to continue.'); render(); updateStats();
+  setMsg('','Ready','Place your bet to continue.');
+  render(); updateStats();
 }
 
-// ── Betting ────────────────────────────────────
+// ── BETTING ────────────────────────────────────────────
 function addBet(n){
   if(S.phase!=='bet') return;
   S.curBet=Math.min(S.curBet+n,S.balance);
@@ -514,28 +795,23 @@ function clearBet(){
   document.getElementById('btnDeal').disabled=true;
 }
 
-// ── Render ─────────────────────────────────────
+// ── RENDER ─────────────────────────────────────────────
 function mkCard(c,back=false){
   const d=document.createElement('div');
   d.className='card'+(back?' back':RED.has(c.s)?' red':' blk');
   if(!back) d.innerHTML=
-    `<div class="c-top">${c.r}${c.s}</div>`+
-    `<div class="c-mid">${c.s}</div>`+
-    `<div class="c-bot">${c.r}${c.s}</div>`;
+    `<div class="c-top">${c.r}${c.s}</div><div class="c-mid">${c.s}</div><div class="c-bot">${c.r}${c.s}</div>`;
   return d;
 }
-
 function render(){
-  // Dealer
   const dc=document.getElementById('dCards'); dc.innerHTML='';
-  const reveal=S.phase==='dealer'||S.phase==='result';
-  S.dealer.forEach((c,i)=>dc.appendChild(mkCard(c,i===1&&!reveal)));
+  const rev=S.phase==='dealer'||S.phase==='result';
+  S.dealer.forEach((c,i)=>dc.appendChild(mkCard(c,i===1&&!rev)));
   const dv=document.getElementById('dVal');
   if(!S.dealer.length) dv.textContent='?';
-  else if(!reveal) dv.textContent=cv(S.dealer[0]);
-  else{ const v=hv(S.dealer); dv.textContent=bust(S.dealer)?`${v} 💥`:v; }
+  else if(!rev) dv.textContent=cv(S.dealer[0]);
+  else{const v=hv(S.dealer);dv.textContent=bust(S.dealer)?`${v} 💥`:v;}
 
-  // Player hands
   const pc=document.getElementById('pCards'); pc.innerHTML='';
   S.hands.forEach((h,hi)=>{
     const g=document.createElement('div');
@@ -549,15 +825,14 @@ function render(){
     return bust(h)?`${v} 💥`:(soft(h)&&v<=21?`Soft ${v}`:v);
   }).join(' | ');
 
-  // Action button availability
   if(S.phase==='play'){
     const h=S.hands[S.activei],bet=S.bets[S.activei];
+    const canSur=RULES.surrender==='late'&&h.length===2&&S.activei===0&&S.hands.length===1;
     document.getElementById('bDbl').disabled=!(h.length===2&&S.balance>=bet);
     document.getElementById('bSpl').disabled=!(pair(h)&&h.length===2&&S.balance>=bet&&S.splits<3);
-    document.getElementById('bSur').disabled=!(h.length===2&&S.activei===0&&S.hands.length===1);
+    document.getElementById('bSur').disabled=!canSur;
   }
 }
-
 function showAct(){
   document.getElementById('cBet').style.display='none';
   document.getElementById('cAct').style.display='';
@@ -574,7 +849,7 @@ function showHint(){
   const h=S.hands[S.activei],u=S.dealer[0],bet=S.bets[S.activei];
   const canDbl=h.length===2&&S.balance>=bet;
   const canSpl=pair(h)&&h.length===2&&S.balance>=bet&&S.splits<3;
-  const canSur=h.length===2&&S.activei===0&&S.hands.length===1;
+  const canSur=RULES.surrender==='late'&&h.length===2&&S.activei===0&&S.hands.length===1;
   const a=optimal(h,u,canDbl,canSpl,canSur);
   document.getElementById('hintA').textContent=ANAME[a]||a;
   document.getElementById('hintE').textContent=explain(a,h,u);
@@ -590,21 +865,156 @@ function updateStats(){
   document.getElementById('sBalance').textContent='$'+S.balance.toLocaleString();
   document.getElementById('sHands').textContent=S.handsPlayed;
   document.getElementById('sAcc').textContent=S.decisions?Math.round(S.correct/S.decisions*100)+'%':'—';
+  renderRulesBar();
 }
 
-// ── Hint / Chart / Reset ───────────────────────
-function toggleHint(){
-  S.hintsOn=!S.hintsOn;
-  const b=document.getElementById('togHint');
-  b.textContent=`💡 Hints: ${S.hintsOn?'ON':'OFF'}`;
-  b.classList.toggle('on',S.hintsOn); showHint();
+// ── RULES BAR ──────────────────────────────────────────
+function renderRulesBar(){
+  const bar=document.getElementById('rulesBar');
+  bar.innerHTML='';
+  const keys=['bjPay','s17','decks','das','surrender','rsa'];
+  for(const k of keys){
+    const m=RULE_META[k];
+    const btn=document.createElement('button');
+    btn.className='rule-badge'+(m.warn()?' warn':m.good()?' good':'');
+    btn.innerHTML=`${m.icon} <span class="rule-val">${m.value()}</span><span class="rule-info">ℹ</span>`;
+    btn.onclick=()=>openRuleInfo(k);
+    bar.appendChild(btn);
+  }
+  const he=houseEdge();
+  const cls=he<0.6?'he-low':he<1.5?'he-mid':'he-high';
+  const badge=document.createElement('div');
+  badge.className='he-badge';
+  badge.innerHTML=`House Edge: <span class="he-val ${cls}">${he}%</span>`;
+  bar.appendChild(badge);
 }
 
-function openChart(){ buildChart(); document.getElementById('chartModal').classList.add('open'); }
-function closeChart(){ document.getElementById('chartModal').classList.remove('open'); }
+// ── RULE INFO MODAL ────────────────────────────────────
+function openRuleInfo(key){
+  const m=RULE_META[key];
+  document.getElementById('ruleModalTitle').textContent=m.icon+' '+m.title;
+  let html=`<div class="rule-info-card">
+    <p>${m.explain.replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')}</p>
+  </div>
+  <h3 style="color:var(--gold);margin-bottom:8px;font-size:.9em">Common Variants</h3>
+  <div class="variants-grid">`;
+  for(const v of m.variants){
+    const edgeStr=v.edge===0?'Baseline':v.edge>0?`+${v.edge}% edge`:`${v.edge}% edge`;
+    const isActive=(()=>{
+      if(key==='s17') return v.key==='s17'?RULES.s17:!RULES.s17;
+      if(key==='das') return v.key===RULES.das;
+      if(key==='rsa') return v.key===RULES.rsa;
+      return v.key===RULES[key];
+    })();
+    html+=`<div class="variant-opt${isActive?' active':''}" onclick="setRule('${key}','${v.key}');renderRulesBar();buildSettings();openRuleInfo('${key}')">
+      <div class="v-name">${v.label}</div>
+      <div class="v-edge ${v.tone}">${edgeStr}</div>
+      <div style="font-size:.76em;opacity:.7;margin-top:3px">${v.desc}</div>
+    </div>`;
+  }
+  html+=`</div><div class="advice-box">${m.advice}</div>`;
+  document.getElementById('ruleModalBody').innerHTML=html;
+  document.getElementById('ruleModal').classList.add('open');
+}
 
+function setRule(key,val){
+  if(key==='s17')      RULES.s17=(val==='s17');
+  else if(key==='das') RULES.das=(val==='true'||val===true);
+  else if(key==='rsa') RULES.rsa=(val==='true'||val===true);
+  else if(key==='decks') RULES.decks=+val;
+  else RULES[key]=val;
+  S.shoe=newShoe(); // reshuffle with new deck count
+  renderRulesBar();
+}
+
+// ── SETTINGS MODAL ─────────────────────────────────────
+function openSettings(){
+  buildSettings();
+  document.getElementById('settingsModal').classList.add('open');
+}
+function buildSettings(){
+  const grid=document.getElementById('settingsGrid');
+  grid.innerHTML='';
+  const defs=[
+    {key:'bjPay', label:'Blackjack pays', hint:'The single most important rule',
+     opts:[{v:'3:2',l:'3:2'},{v:'6:5',l:'6:5'},{v:'1:1',l:'1:1'}]},
+    {key:'s17', label:'Dealer soft 17', hint:'Dealer stands (S17) or hits (H17)',
+     opts:[{v:'s17',l:'S17 — Stand'},{v:'h17',l:'H17 — Hit'}]},
+    {key:'decks', label:'Decks in shoe', hint:'Fewer = slightly better for player',
+     opts:[{v:1,l:'1'},{v:2,l:'2'},{v:4,l:'4'},{v:6,l:'6'},{v:8,l:'8'}]},
+    {key:'das', label:'Double after split', hint:'Can you double on a split hand?',
+     opts:[{v:'true',l:'Yes'},{v:'false',l:'No'}]},
+    {key:'surrender', label:'Surrender', hint:'Fold for half your bet back',
+     opts:[{v:'late',l:'Late'},{v:'none',l:'None'}]},
+    {key:'rsa', label:'Resplit aces', hint:'Can you split aces again?',
+     opts:[{v:'true',l:'Yes'},{v:'false',l:'No'}]},
+  ];
+  for(const def of defs){
+    const row=document.createElement('div');
+    row.className='setting-row';
+    let active;
+    if(def.key==='s17') active=RULES.s17?'s17':'h17';
+    else if(def.key==='das') active=String(RULES.das);
+    else if(def.key==='rsa') active=String(RULES.rsa);
+    else active=String(RULES[def.key]);
+    row.innerHTML=`<div class="setting-label">${def.label}<small>${def.hint}</small></div>
+      <div class="toggle-group">${def.opts.map(o=>
+        `<button class="t-opt${String(o.v)===active?' active':''}"
+          onclick="setRule('${def.key}','${o.v}');buildSettings();renderRulesBar()"
+        >${o.l}</button>`
+      ).join('')}</div>`;
+    grid.appendChild(row);
+  }
+}
+
+// ── STRATEGY CHART ─────────────────────────────────────
+function openChart(){
+  buildChart(); document.getElementById('chartModal').classList.add('open');
+}
 function buildChart(){
   const dealers=['2','3','4','5','6','7','8','9','10','A'];
+  document.getElementById('chartSubtitle').textContent=
+    `${RULES.decks} Deck${RULES.decks>1?'s':''} · ${RULES.s17?'S17':'H17'} · ${RULES.bjPay} · ${RULES.das?'DAS':'No DAS'} · ${RULES.surrender==='late'?'Late Surrender':'No Surrender'}`;
+
+  // Build effective tables applying rule overrides
+  function effHard(){
+    const t={};
+    for(const [v,row] of Object.entries(HT)){
+      t[v]=row.map((a,i)=>{
+        let x=a;
+        if(!RULES.s17 && H17_HARD[v]?.[i]) x=H17_HARD[v][i];
+        if(RULES.surrender==='none' && (x==='R'||x==='Rs')) x=x==='R'?'H':'S';
+        return x;
+      });
+    }
+    return t;
+  }
+  function effSoft(){
+    const t={};
+    for(const [v,row] of Object.entries(ST)){
+      t[v]=row.map((a,i)=>{
+        let x=a;
+        if(!RULES.s17 && H17_SOFT[v]?.[i]) x=H17_SOFT[v][i];
+        return x;
+      });
+    }
+    return t;
+  }
+  function effPair(){
+    const t={};
+    for(const [v,row] of Object.entries(PT)){
+      t[v]=row.map((a,i)=>{
+        let x=a;
+        if(!RULES.das && x==='SP'){
+          const nodas={2:[0,1],3:[0,1],4:[3,4],6:[0]};
+          if(nodas[+v]?.includes(i)) x='H';
+        }
+        return x;
+      });
+    }
+    return t;
+  }
+
   function tbl(rows,title){
     let h=`<div class="strat-sec"><h3>${title}</h3>`;
     h+=`<table class="strat-tbl"><tr><th>Hand</th>`;
@@ -617,19 +1027,28 @@ function buildChart(){
     }
     return h+'</table></div>';
   }
-  const hardR=Object.entries(HT).map(([v,a])=>[v,a]);
-  const softL={13:'A+2',14:'A+3',15:'A+4',16:'A+5',17:'A+6',18:'A+7',19:'A+8',20:'A+9'};
-  const softR=Object.entries(ST).map(([v,a])=>[softL[v]||v,a]);
-  const pairL={2:'2-2',3:'3-3',4:'4-4',5:'5-5',6:'6-6',7:'7-7',8:'8-8',9:'9-9',10:'10-10',11:'A-A'};
-  const pairR=Object.entries(PT).map(([v,a])=>[pairL[v]||v,a]);
+  const sL={13:'A+2',14:'A+3',15:'A+4',16:'A+5',17:'A+6',18:'A+7',19:'A+8',20:'A+9'};
+  const pL={2:'2-2',3:'3-3',4:'4-4',5:'5-5',6:'6-6',7:'7-7',8:'8-8',9:'9-9',10:'10-10',11:'A-A'};
   document.getElementById('chartContent').innerHTML=
-    tbl(hardR,'📋 Hard Totals')+tbl(softR,'🂡 Soft Totals')+tbl(pairR,'✌️ Pairs');
+    tbl(Object.entries(effHard()).map(([v,a])=>[v,a]),'📋 Hard Totals')+
+    tbl(Object.entries(effSoft()).map(([v,a])=>[sL[v]||v,a]),'🂡 Soft Totals')+
+    tbl(Object.entries(effPair()).map(([v,a])=>[pL[v]||v,a]),'✌️ Pairs');
 }
 
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ── MISC ───────────────────────────────────────────────
+function toggleHint(){
+  S.hintsOn=!S.hintsOn;
+  const b=document.getElementById('togHint');
+  b.textContent=`💡 Hints: ${S.hintsOn?'ON':'OFF'}`;
+  b.classList.toggle('on',S.hintsOn); showHint();
+}
 function resetGame(){
+  const hi=S.hintsOn;
   S={shoe:newShoe(),dealer:[],hands:[[]],bets:[0],activei:0,
     curBet:0,balance:1000,phase:'bet',
-    hintsOn:S.hintsOn,handsPlayed:0,correct:0,decisions:0,splits:0};
+    hintsOn:hi,handsPlayed:0,correct:0,decisions:0,splits:0};
   document.getElementById('curBet').textContent='0';
   document.getElementById('btnDeal').disabled=true;
   document.getElementById('cBet').style.display='';
@@ -638,15 +1057,17 @@ function resetGame(){
   document.getElementById('hintArea').classList.remove('on');
   setMsg('','Game Reset','Starting fresh with $1,000.'); render(); updateStats();
 }
-
-// ── Keyboard ───────────────────────────────────
 document.addEventListener('keydown',e=>{
   if(S.phase!=='play') return;
   const k={h:'hit',s:'stand',d:'double',p:'split',r:'surrender',' ':'stand'};
   const a=k[e.key.toLowerCase()]; if(a){e.preventDefault();act(a);}
 });
+// Close modals on overlay click
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
+});
 
-// ── Init ───────────────────────────────────────
+// ── INIT ───────────────────────────────────────────────
 S.shoe=newShoe(); render(); updateStats();
 </script>
 </body>
