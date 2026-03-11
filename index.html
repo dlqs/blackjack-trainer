@@ -592,9 +592,7 @@ const PT={
  11: ['SP','SP','SP','SP','SP','SP','SP','SP','SP','SP'],
 };
 // No-DAS pair adjustments (change SP→H where DAS was needed)
-const PT_NODAS_OVERRIDE={
-  2:[0,1],[3:[0,1]],4:[3,4],6:[0],
-};
+const PT_NODAS_OVERRIDE={2:[0,1],3:[0,1],4:[3,4],6:[0]};
 // H17 overrides: [tableKey][handVal][dealerIdx] = newAction
 const H17_HARD={11:{9:'D'}, 15:{9:'R'}, 17:{9:'Rs'}};
 const H17_SOFT={19:{4:'Ds'}};
@@ -1135,5 +1133,8 @@ document.querySelectorAll('.overlay').forEach(o=>{
 // ── INIT ───────────────────────────────────────────────
 S.shoe=newShoe(); render(); updateStats();
 </script>
+<div style="text-align:center;opacity:.3;font-size:.7em;padding:18px 0 10px;font-family:monospace">
+  BUILD_INFO_PLACEHOLDER
+</div>
 </body>
 </html>
