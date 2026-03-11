@@ -652,80 +652,77 @@ function optimal(hand,upcard,canDbl,canSpl,canSur){
 
 const ANAME={H:'Hit',S:'Stand',D:'Double Down',SP:'Split',R:'Surrender'};
 
+// Dealer upcard categories
+function dealerCat(dv){
+  if(dv>=10) return 'strong';   // 10, A — bust ~17-23%, likely 18-21
+  if(dv===9) return 'pat9';     // likely 19
+  if(dv===8) return 'pat8';     // likely 18
+  if(dv===7) return 'pat7';     // likely 17 (magic number — 10-value hole card)
+  if(dv>=4)  return 'bust';     // 4-6 — bust 40-42%
+  return 'weak';                // 2-3 — bust 35-37%, still draws often
+}
+function dealerBustPct(dv){
+  return {2:35,3:37,4:40,5:42,6:42,7:26,8:24,9:23,10:23,11:17}[dv]||23;
+}
+
 function explain(a,hand,upcard){
   const v=hv(hand), s=soft(hand);
   const dv=upcard.r==='A'?11:Math.min(cv(upcard),10);
   const dStr=upcard.r==='A'?'Ace':dv===10?'10':String(dv);
   const hStr=s?`Soft ${v}`:`Hard ${v}`;
+  const cat=dealerCat(dv);
+  const bp=dealerBustPct(dv);
 
-  // Dealer context — what their upcard implies
-  const dCtx=(()=>{
-    if(upcard.r==='A')   return `An Ace is the strongest dealer card — they can't bust on the first draw, likely finish 17–21, and may have blackjack.`;
-    if(dv===10)          return `A 10 is very strong — dealer likely ends on 20 or better, and busts only ~23% of the time.`;
-    if(dv===9)           return `Dealer's 9 likely produces a final 19 — a hard total to beat.`;
-    if(dv===8)           return `Dealer's 8 likely produces 18.`;
-    if(dv===7)           return `Dealer's 7 almost certainly has a 10-value hole card — they'll stand on 17 and beat anything lower.`;
-    if(dv===6)           return `6 is the worst card for the dealer — they must draw and bust ~42% of the time.`;
-    if(dv===5)           return `5 is a strong bust card — dealer busts ~42% of the time with a 5 upcard.`;
-    if(dv===4)           return `4 is a decent bust card — dealer busts ~40% of the time.`;
-    if(dv===3)           return `3 is a mild bust card — dealer busts ~37% of the time, but not enough to play very passively.`;
-    if(dv===2)           return `2 looks safe but dealer still only busts ~35% — the most deceptive upcard.`;
-    return '';
-  })();
-
-  const bustStrong=dv>=7, bustCard=dv>=4&&dv<=6, midBust=dv<=3;
-
-  switch(a){
-    case 'H':{
-      if(s){
-        if(v<=17) return `${hStr} vs ${dStr}: Soft hands can't bust on a single draw (Ace flips from 11 to 1). Hit freely — no risk, only upside. ${dCtx}`;
-        if(v===18&&bustStrong) return `Soft 18 vs ${dStr}: ${dCtx} Your 18 ties or loses to their likely result. The Ace protects you — any draw of 3 or less improves you without risk of busting.`;
-      }
-      if(v<=11)  return `${hStr} vs ${dStr}: No bust risk — draw freely to build a competitive total. ${dCtx}`;
-      if(v===12&&(dv===2||dv===3)) return `Hard 12 vs ${dStr}: ${dCtx} Dealer only busts ~${dv===2?35:37}% here — not enough to justify standing on 12. Hit despite the bust risk.`;
-      if(v===12) return `Hard 12 vs ${dStr}: You bust on any 10-value (~31% chance), but ${dCtx} Your 12 almost certainly loses if you stand — hitting gives you a fighting chance.`;
-      if(v>=13&&v<=16&&bustStrong) return `${hStr} vs ${dStr}: ${dCtx} Your ${v} loses to any dealer standing hand. Hitting is risky (~${Math.round((v-11)/10*100)+30}% bust chance) but standing is nearly a guaranteed loss.`;
-      return `${hStr} vs ${dStr}: Hit to improve — your total isn't strong enough against this dealer. ${dCtx}`;
-    }
-    case 'S':{
-      if(s){
-        if(v>=19) return `${hStr} vs ${dStr}: 19+ is a strong hand — no reason to risk it. Stand and win most of the time.`;
-        if(v===18&&dv===7) return `Soft 18 vs 7: Dealer's 7 almost certainly produces 17. Your 18 beats that — stand and take the win.`;
-        if(v===18&&dv===8) return `Soft 18 vs 8: Dealer likely ends on 18 — you push at best by standing, but hitting risks turning your 18 into something worse.`;
-      }
-      if(v>=17) return `${hStr} vs ${dStr}: Hard 17+ — standing is almost always correct. Any draw risks busting, and 17 already beats dealer busts.`;
-      if(v>=13&&bustCard) return `${hStr} vs ${dStr}: ${dCtx} You're in a good spot — stand, don't bust yourself, and collect when the dealer folds. Strategy calls this "playing not to lose."`;
-      if(v>=13&&midBust) return `${hStr} vs ${dStr}: ${dCtx} Dealer has a real (if moderate) bust chance — give them the rope. Your ${v} isn't winning by itself, but it wins when they bust.`;
-      if(v===12&&bustCard) return `Hard 12 vs ${dStr}: ${dCtx} Normally 12 is too weak, but against a bust card the math favors standing — dealer busts more often than your 12 wins by drawing.`;
-      return `${hStr} vs ${dStr}: Stand — your total holds up in this spot. ${dCtx}`;
-    }
-    case 'D':{
-      if(s){
-        if(v===18) return `Soft 18 vs ${dStr}: The Ace gives you zero bust risk on one draw. ${bustCard?`Dealer's ${dStr} is a bust card — `:''}Double to get paid twice in a favorable position.`;
-        if(v===19) return `Soft 19 vs ${dStr}: Dealer must draw and bust often enough that doubling your bet here is profitable over time. The Ace still protects you.`;
-        return `${hStr} vs ${dStr}: Soft double — the Ace means you can't bust on one draw. Get double money in on a favorable hand. ${dCtx}`;
-      }
-      if(v===11) return `Hard 11 vs ${dStr}: The best doubling hand in blackjack. ~31% of remaining cards are 10-value — likely giving you 21. Double every time${dv>=10?' except vs Ace (S17 tables)':''}.`;
-      if(v===10) return `Hard 10 vs ${dStr}: Strong double — you'll likely land on 20. ${dCtx} Maximum money in on a near-premium hand.`;
-      if(v===9)  return `Hard 9 vs ${dStr}: ${dCtx} Double to maximize profit when the dealer is likely to bust. A 10-draw gives you 19.`;
-      return `${hStr} vs ${dStr}: Favorable doubling spot — you have an edge, so get more money in. ${dCtx}`;
-    }
-    case 'SP':{
-      const pr=hand[0].r, pv=pr==='A'?11:Math.min(cv(hand[0]),10);
-      if(pr==='A') return `A-A vs ${dStr}: Never play two Aces as a hand — soft 12 is awful. Split to give each Ace a fresh card; you'll likely reach 21 on both. ${dCtx}`;
-      if(pv===8)   return `8-8 vs ${dStr}: Hard 16 is the worst hand in blackjack — you bust ~62% if you hit, and lose standing to almost everything. Splitting turns one disaster into two 8-starting hands. ${dCtx}`;
-      if(pv===9)   return `9-9 vs ${dStr}: Your 18 doesn't beat dealer's likely ${dv>=7?dv+10>21?dv:dv+10:dv+10}. Split to get two 9s — each a strong foundation for 19. ${dCtx}`;
-      if(pv===7)   return `7-7 vs ${dStr}: Hard 14 is weak. ${dCtx} Split to trade one weak hand for two 7-starting hands with room to improve.`;
-      if(pv===6)   return `6-6 vs ${dStr}: Hard 12 is a problem hand. ${dCtx} Splitting gives you two 6-start hands — each can draw to 16 and let the dealer bust.`;
-      if(pv===4)   return `4-4 vs ${dStr}: ${dCtx} Split these 4s — draw a 7 to either and you have 11 (ideal double). Hard 8 isn't worth doubling but two 4s give you options.`;
-      if(pv===3||pv===2) return `${pv}-${pv} vs ${dStr}: Hard ${pv*2} is weak. ${dCtx} Split to play two hands against a bust-prone dealer — you'll lose less and win more over many hands.`;
-      return `Pair vs ${dStr}: Split — two separate hands give you more ways to win here. ${dCtx}`;
-    }
-    case 'R':
-      return `${hStr} vs ${dStr}: You're a big underdog. ${dCtx} Hitting busts you ~${v>=16?62:58}% of the time; standing loses to their likely hand. Surrendering returns 50¢ on the dollar — mathematically better than playing it out.`;
-    default:
-      return '';
+  // --- HIT ---
+  if(a==='H'){
+    if(s&&v<=17) return `Rule: soft ≤17 → always hit. The Ace flips 11→1 if you'd bust, so one more draw is always free. No downside, only upside.`;
+    if(s&&v===18) return `Rule: soft 18 vs ${dStr} → hit. Dealer's ${dStr} likely finishes above 18 (${cat==='strong'?'~83% make 17-21':'likely 19+'}). Your 18 is a loser here — the Ace still protects you on one draw.`;
+    if(v<=11) return `Rule: hard ≤11 → always hit. You cannot bust on a single draw (need 10 more to reach 12). Draw to build your total.`;
+    if(v===12&&(dv===2||dv===3)) return `Rule: hard 12 vs 2-3 → hit. Dealer busts only ~${bp}% — not enough to justify standing on 12. You'd lose too often standing; take the risk and draw.`;
+    // 12-16 vs strong dealer
+    if(v>=12&&v<=16&&cat!=='bust'&&cat!=='weak')
+      return `Rule: hard 12-16 vs dealer ${dStr} (${cat==='strong'||cat==='pat7'?'pat/strong card, busts only ~'+bp+'%':'busts ~'+bp+'%'}) → hit until 17+. Dealer will make a standing hand most of the time — your ${v} loses automatically if you stand, so take the risk and draw.`;
+    return `Rule: your ${v} is too weak to win standing against a dealer who busts only ~${bp}%. Draw to improve.`;
   }
+
+  // --- STAND ---
+  if(a==='S'){
+    if(s&&v>=19) return `Rule: soft 19+ → always stand. 19 or better wins outright most hands. Never risk a strong made hand.`;
+    if(s&&v===18&&(cat==='pat7'||cat==='pat8')) return `Rule: soft 18 vs 7-8 → stand. Dealer's ${dStr} likely finishes ${dv+10<=21?dv+10:dv} — your 18 beats 17 or ties 18. No need to improve.`;
+    if(v>=17) return `Rule: hard 17+ → always stand. Any draw risks busting (e.g. hard 17 needs a 4 or less to be safe — only ${Math.round(4/13*100)}% of cards). Never hit 17+.`;
+    if(cat==='bust') return `Rule: hard 12+ vs dealer bust card (4-6) → stand. Dealer busts ~${bp}% of the time — they self-destruct at double the rate of a strong card. Don't risk busting yourself; let them draw into a bust.`;
+    if(cat==='weak'&&v>=13) return `Rule: hard 13+ vs 2-3 → stand. Dealer busts ~${bp}% — enough that standing turns a profit. Your ${v} wins every time they bust; hitting adds bust risk you don't need to take.`;
+    return `Rule: your ${v} holds up here. Dealer busts ~${bp}% and your total beats their likely outcome often enough to stand.`;
+  }
+
+  // --- DOUBLE ---
+  if(a==='D'){
+    if(s) return `Rule: soft double (Ace in hand) → you cannot bust on one draw. ${cat==='bust'?`Dealer's ${dStr} busts ~${bp}% — `:''}Get double money in when the Ace gives you a free draw.`;
+    if(v===11) return `Rule: hard 11 → double vs dealer 2-10 (and Ace on H17). Best doubling hand — ~31% of cards are 10-value, likely giving you 21. Always maximize your bet here.`;
+    if(v===10) return `Rule: hard 10 → double vs dealer 2-9. Likely to land on 20. Dealer busts ~${bp}% and rarely beats a 20. Get double money in.`;
+    if(v===9)  return `Rule: hard 9 → double vs dealer 3-6 only. Dealer bust cards (${bp}% bust rate) make this profitable. Outside that range, the edge disappears.`;
+    return `Rule: double when your expected gain per dollar exceeds $1 — you're in that spot here. Dealer busts ~${bp}% and you likely land on a strong total.`;
+  }
+
+  // --- SPLIT ---
+  if(a==='SP'){
+    const pr=hand[0].r, pv=pr==='A'?11:Math.min(cv(hand[0]),10);
+    if(pr==='A') return `Rule: always split Aces. Together they make soft 12 (terrible). Apart, each Ace draws one card and likely reaches 21. One of the few automatic rules.`;
+    if(pv===10)  return `Rule: never split 10s (you have 20 — the second-best hand). This is shown for reference only; always stand.`;
+    if(pv===8)   return `Rule: always split 8s — even vs strong dealer. Hard 16 is unplayable (bust if you hit, lose if you stand ~77% vs 10). Two 8s are recoverable starting hands. Always split.`;
+    if(pv===5)   return `Rule: never split 5s. Hard 10 is a strong doubling hand; two 5s are weak starts. Double instead.`;
+    if(pv===9)   return `Rule: split 9s vs 2-6, 8-9 → stand vs 7, 10, Ace. Your 18 beats dealer's likely 17 (vs 7) and dealer's likely 20 (vs 10) beats your 18 anyway. Here vs ${dStr}: splitting gives two 9-starting hands.`;
+    if(pv===4)   return `Rule: split 4s vs 5-6 only (DAS available). Dealer's bust card (${bp}%) + possible 11 draw makes it worth creating two hands. Against any other card, hard 8 plays better.`;
+    return `Rule: split ${pv}-${pv} vs dealer 2-${pv<=3?7:6}. Dealer busts ~${bp}% and two separate hands win more than one combined weak hand. Splitting converts a losing position into two marginal ones.`;
+  }
+
+  // --- SURRENDER ---
+  if(a==='R'){
+    const bustChance=v>=17?77:v>=16?62:58;
+    return `Rule: surrender hard ${v===15?'15 vs 10':'16 vs 9/10/Ace'}${v===17?' (H17 only)':''}. You're a heavy underdog — hit busts you ~${bustChance}%, stand loses to dealer's likely ${cat==='strong'?'20':'19+'}. Surrendering returns 50¢ per $1 bet — better EV than playing out a losing hand.`;
+  }
+
+  return '';
 }
 
 // ── GAME FLOW ──────────────────────────────────────────
