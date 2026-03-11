@@ -764,7 +764,7 @@ function act(action){
       h.push(draw()); render();
       if(bust(h)) setMsg('bad','💥 Bust on Double!','Over 21 after doubling.');
       setTimeout(()=>advance(),1100); break;
-    case 'split':
+    case 'split': {
       if(!canSpl) break;
       const c2=h.splice(1,1)[0];
       h.push(draw());
@@ -774,12 +774,14 @@ function act(action){
       render(); showHint();
       if(h[0].r==='A'&&!RULES.rsa) advance();
       break;
-    case 'surrender':
+    }
+    case 'surrender': {
       if(!canSur) break;
       const back=bet/2; S.balance+=back;
       setMsg('','🏳️ Surrender',`Recovered $${back}.`);
       S.bets[S.activei]=0; S.phase='result';
       render(); endRound(); break;
+    }
   }
   updateStats();
 }
