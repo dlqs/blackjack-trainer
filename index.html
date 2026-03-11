@@ -754,16 +754,16 @@ function act(action){
   switch(action){
     case 'hit':
       h.push(draw()); render(); showHint();
-      if(bust(h)){setMsg('bad','💥 Bust!','Over 21.');advance();}
-      else if(hv(h)===21) advance();
+      if(bust(h)){setMsg('bad','💥 Bust!','Over 21.');setTimeout(()=>advance(),1100);}
+      else if(hv(h)===21){setTimeout(()=>advance(),900);}
       break;
-    case 'stand': advance(); break;
+    case 'stand': setTimeout(()=>advance(),600); break;
     case 'double':
       if(!canDbl) break;
       S.balance-=bet; S.bets[S.activei]*=2;
       h.push(draw()); render();
       if(bust(h)) setMsg('bad','💥 Bust on Double!','Over 21 after doubling.');
-      advance(); break;
+      setTimeout(()=>advance(),1100); break;
     case 'split':
       if(!canSpl) break;
       const c2=h.splice(1,1)[0];
@@ -792,7 +792,7 @@ function advance(){
 function endPlay(){
   S.phase='dealer'; render();
   const allBust=S.hands.every(h=>bust(h));
-  setTimeout(()=>allBust?endRound():dealerPlay(),300);
+  setTimeout(()=>allBust?endRound():dealerPlay(),700);
 }
 function dealerPlay(){
   const iv=setInterval(()=>{
